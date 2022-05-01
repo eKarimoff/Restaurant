@@ -12,6 +12,7 @@ use App\Models\Warehouse;
 use App\Models\Fridge;
 use App\Models\PreparedFood;
 use App\Rules\NotEnoughProducts;
+use App\Mail\RegisterMail;
 use App\Http\Requests\AddFoodRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -97,6 +98,7 @@ class RestaurantController extends Controller
  
         DB::commit();
         session()->flash('message', 'Order has been ordered successfully');
+        dispatch(new RegisterMail());
         return redirect()->back();
     }
         catch(\Exception $e){
@@ -109,7 +111,7 @@ class RestaurantController extends Controller
     public function orderedFood()
     {
         $orders = Order::select('food_id', DB::raw('sum(count) as total'))->groupBy('food_id')->with('food')->orderBy('created_at')->paginate(5);
-
+        dd($orders);
         return view('orders', compact('orders'));
     }
 

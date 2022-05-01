@@ -45,7 +45,7 @@
                     <th style="text-align: center">Name</th>
                     
                     <th style="text-align: center">Made Price</th>
-                    <th style="text-align: center">Food Price</th>
+                    <th style="text-align: center">Selling Price</th>
                     <th style="text-align: center">Benefit</th>
                     <th style="text-align: center">Available</th>
                     <th style="text-align: center">Count</th>
@@ -54,12 +54,14 @@
                     @foreach ($foods as $food)
                     <tr>
                         <td><a style="color:black;text-decoration:none" href="{{ route('ingredient', ['id' => $food->id]) }}">{{ $food->name }} <i class="bi bi-arrow-right ml-2"></i></a></td>
-                        <td style="text-align: center">{{ $food->made_price /10}}$</td>
+                        <td style="text-align: center">{{ $food->made_price /10 }}$</td>
                         
                         <td style="text-align: center"><a href="{{ route('editPrice',['id'=>$food->id]) }}"><i class="bi bi-pencil"></i></a> {{ $food->price }}$</td>
-                        <td style="text-align: center">{{ $food->price - $food->made_price /10 }}$</td>
+                        <td style="text-align: center;{{ $food->price - $food->made_price /10 <0 ? 'color:red' : 'color:green'}}">
+                        {{ $food->price - $food->made_price /10 <0 ? $food->price - $food->made_price /10 : $food->price - $food->made_price /10}}$</td>
 
-                            <td style="text-align: center; ">{{ $food->preparedFood && $food->preparedFood->amount ? $food->preparedFood->amount : 'Not available'}}</td>
+                            <td style=" text-align: center;{{ $food->preparedFood && $food->preparedFood->amount ? 'color:black' : 'color:red' }}">
+                                {{$food->preparedFood && $food->preparedFood->amount ? $food->preparedFood->amount : 'Not Available'}}</td>
                             <td>
                                 <input type="number" min="1" max="10" style="float: right; width:40px; height:20px;" id="{{ $food->name }}"
                                 disabled value="amount" name="name[{{ $food->id }}]" required>
@@ -135,10 +137,13 @@
         array.splice(result, 1)
         console.log(event.target,found[0])
     }
+    var acc = 0;
     function total(value) {
         var price = document.getElementById("total");
-        var res = value / found[0].product_price.price
-         price.innerText += res + ' $'
+        var res = value / found[0].product_price.price;
+        acc = res + acc;
+
+         price.innerText = 'Total: '+ acc.toFixed(2) + ' $'
     console.log(found[0].product_price.price)
  }
 

@@ -66,6 +66,5 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
 });
 });
 
-
-
+Route::post('/orderStore',[RestaurantController::class,'orderStore'])->name('testMail');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

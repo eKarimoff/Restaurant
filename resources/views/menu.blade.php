@@ -60,7 +60,7 @@
                         <td style="text-align: center;{{ $food->price - $food->made_price /10 <0 ? 'color:red' : 'color:green'}}">
                         {{ $food->price - $food->made_price /10 <0 ? $food->price - $food->made_price /10 : $food->price - $food->made_price /10}}$</td>
 
-                            <td style=" text-align: center;{{ $food->preparedFood && $food->preparedFood->amount ? 'color:black' : 'color:red' }}">
+                            <td style=" text-align: center;{{ $food->preparedFood && $food->preparedFood->amount ? 'color:green' : 'color:red' }}">
                                 {{$food->preparedFood && $food->preparedFood->amount ? $food->preparedFood->amount : 'Not Available'}}</td>
                             <td>
                                 <input type="number" min="1" max="10" style="float: right; width:40px; height:20px;" id="{{ $food->name }}"

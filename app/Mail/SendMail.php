@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RegisterMail extends Mailable
+class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -26,8 +26,8 @@ class RegisterMail extends Mailable
      *
      * @return $this
      */
-    public function __invoke()
+    public function build()
     {
-        return $this->markdown('test');
+        return $this->view('test');
     }
 }

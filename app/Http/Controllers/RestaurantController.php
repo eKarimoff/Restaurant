@@ -12,7 +12,7 @@ use App\Models\Warehouse;
 use App\Models\Fridge;
 use App\Models\PreparedFood;
 use App\Rules\NotEnoughProducts;
-use App\Mail\RegisterMail;
+use App\Jobs\SendEmail;
 use App\Http\Requests\AddFoodRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -98,7 +98,7 @@ class RestaurantController extends Controller
  
         DB::commit();
         session()->flash('message', 'Order has been ordered successfully');
-        dispatch(new RegisterMail());
+      
         return redirect()->back();
     }
         catch(\Exception $e){
@@ -111,14 +111,13 @@ class RestaurantController extends Controller
     public function orderedFood()
     {
         $orders = Order::select('food_id', DB::raw('sum(count) as total'))->groupBy('food_id')->with('food')->orderBy('created_at')->paginate(5);
-        dd($orders);
         return view('orders', compact('orders'));
     }
 
     public function editPrice($id)
     {
         $price = Food::find($id);
-
+        
         return view('editPrice')->with(['price'=>$price]);
     }
 
@@ -127,6 +126,7 @@ class RestaurantController extends Controller
         $update = Food::where('id', $id)->first();
         $update->price = $request->price;
         $update->save();
+        dispatch(new SendEmail());
         session()->flash('success','Price has been updated successfully!');
         return redirect()->back();
     }

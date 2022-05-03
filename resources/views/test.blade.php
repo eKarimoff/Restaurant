@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    Thank you for your orders
+    <h1>Thank for your update</h1>
 </body>
 </html>

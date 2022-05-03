@@ -9,10 +9,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RegisterMail;
-use App\Mail\QueueEmail;
+use App\Mail\SendMail;
 
-class QueueJob implements ShouldQueue
+class SendEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -33,6 +32,7 @@ class QueueJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('elyorbekkarimov3gmail.com')->send(new RegisterMail());
+        Mail::to('elyorbekkarimov3@gmail.com')->send(new SendMail());
+        
     }
 }

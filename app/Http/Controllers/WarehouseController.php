@@ -8,6 +8,7 @@ use App\Models\Ingredient;
 use App\Models\Unit;
 use App\Models\Warehouse;
 use App\Models\Price;
+use App\Jobs\SendEmail;
 use App\Http\Requests\InsertProductRequest;
 use Illuminate\Support\Facades\DB;
 class WarehouseController extends Controller
@@ -75,7 +76,7 @@ class WarehouseController extends Controller
         $price->product_id = $id;
         $price->price = $request['price'];
         $price->save();
-        
+       
         session()->flash('message','Product has been added successfully!');
         return redirect()->back();
     }

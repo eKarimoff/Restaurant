@@ -7,12 +7,17 @@
         <tr>
         <th>Food Name</th>
         <th>Order Amount</th>
+        <th>Total sell</th>
+        <th>Total Benefit</th>
     </tr>
         <tbody>
                 @foreach ($orders as $order)
              <tr>
                    <td><a href="{{ route('orderDeatil',['id' => $order->food->id])}}" style="text-decoration: none; color:black">{{ $order->food->name }}<i class="bi bi-arrow-right ml-2"></i></a></td>
                    <td>{{ $order->total }}</td>
+                   <td>{{ $order->food->price * $order->total}}$</td>
+                   <td style="{{ $order->food->price * $order->total - $order->total * $order->food->made_price /10 < 0 ? 'color:red' : 'color:green'}}">
+                    {{ $order->food->price * $order->total - $order->total * $order->food->made_price /10 < 0 ? $order->food->price * $order->total - $order->total * $order->food->made_price /10 : $order->food->price * $order->total - $order->total * $order->food->made_price /10  }}
             </tr>
                 @endforeach
               

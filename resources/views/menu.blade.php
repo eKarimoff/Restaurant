@@ -57,8 +57,8 @@
                         <td style="text-align: center">{{ $food->made_price /10 }}$</td>
                         
                         <td style="text-align: center"><a href="{{ route('editPrice',['id'=>$food->id]) }}"><i class="bi bi-pencil"></i></a> {{ $food->price }}$</td>
-                        <td style="text-align: center;{{ $food->price - $food->made_price /10 <0 ? 'color:red' : 'color:green'}}">
-                        {{ $food->price - $food->made_price /10 <0 ? $food->price - $food->made_price /10 : $food->price - $food->made_price /10}}$</td>
+                        <td style="text-align: center;{{ $food->price - $food->made_price /10 < 0 ? 'color:red' : 'color:green'}}">
+                        {{ $food->price - $food->made_price /10 < 0 ? $food->price - $food->made_price /10 : $food->price - $food->made_price /10}}$</td>
 
                             <td style=" text-align: center;{{ $food->preparedFood && $food->preparedFood->amount ? 'color:green' : 'color:red' }}">
                                 {{$food->preparedFood && $food->preparedFood->amount ? $food->preparedFood->amount : 'Not Available'}}</td>

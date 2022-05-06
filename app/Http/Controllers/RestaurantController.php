@@ -13,6 +13,8 @@ use App\Models\Fridge;
 use App\Models\PreparedFood;
 use App\Rules\NotEnoughProducts;
 use App\Jobs\SendEmail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 use App\Http\Requests\AddFoodRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -81,7 +83,12 @@ class RestaurantController extends Controller
             $order->food_id = $key;
             $order->count = $value;
             $order->save();
-
+            $orders[] = [
+                'food_name'=>$order->food->name,
+                'food_price'=>$order->food->price,
+                'count'=>$order->count
+            ];
+            
             $make = PreparedFood::where('food_id',$key)->first();
             if(!$make || $make->amount < $value)
             {
@@ -95,6 +102,7 @@ class RestaurantController extends Controller
                 $make->save();
             }
         }
+        Mail::to(auth()->user())->send(new SendMail($orders));
  
         DB::commit();
         session()->flash('message', 'Order has been ordered successfully');
@@ -130,5 +138,6 @@ class RestaurantController extends Controller
         session()->flash('success','Price has been updated successfully!');
         return redirect()->back();
     }
+
 
 }

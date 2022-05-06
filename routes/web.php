@@ -6,6 +6,7 @@ use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\PreparedFoodController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function(){
    
@@ -20,7 +21,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     
     Route::post('/orderStore',[RestaurantController::class,'orderStore']);
     
-    Route::get('/home', [RestaurantController::class, 'menu'])->name('home');
+    Route::get('/home', [RestaurantController::class, 'menu'])->name('menu');
     
     Route::get('/menu',[RestaurantController::class,'menu'])->name('menu');
 
@@ -55,16 +56,18 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('/editPrice/{id}',[RestaurantController::class,'editPrice'])->name('editPrice');
 
     Route::post('updatePrice/{id}',[RestaurantController::class,'updateFoodPrice']);
+
 });
     Route::group(['middleware'=> ['role:waiter|chef']], function (){
+    Route::get('/editPrice/{id}',[RestaurantController::class,'editPrice'])->name('editPrice');
+    Route::post('updatePrice/{id}',[RestaurantController::class,'updateFoodPrice']);
     Route::get('/', [RestaurantController::class,'menu'])->name('menu');
     Route::get('/menu', [RestaurantController::class,'menu'])->name('menu');
     Route::post('/orderStore',[RestaurantController::class,'orderStore']);
     Route::get('/ingredient/{id}',[DetailController::class,'ingredient'])->name('ingredient');
-   
-   
+    Route::get('/home', [RestaurantController::class, 'menu'])->name('menu');
+    
 });
 });
 
-Route::post('/orderStore',[RestaurantController::class,'orderStore'])->name('testMail');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

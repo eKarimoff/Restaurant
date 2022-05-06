@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Ingredient;
 use App\Models\Unit;
 use App\Models\Warehouse;
-use App\Models\Price;
+use App\Models\Product_Price;
 use App\Jobs\SendEmail;
 use App\Http\Requests\InsertProductRequest;
 use Illuminate\Support\Facades\DB;
@@ -42,7 +42,7 @@ class WarehouseController extends Controller
             $warehouse->amount = $data['amount'];
             $warehouse->save();
 
-            $price = new Price();
+            $price = new Product_Price();
             $price->product_id = $product->id;
             $price->price = $data['price'];
             $price->save();
@@ -72,7 +72,7 @@ class WarehouseController extends Controller
         $update = Warehouse::where('product_id', $id)->first();
         $update->amount += (int)$request['amount'];
         $update->save();
-        $price = new Price();
+        $price = new Product_Price();
         $price->product_id = $id;
         $price->price = $request['price'];
         $price->save();

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Mail;
-
+// use App\Model\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,14 +11,15 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $orders;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($orders)
     {
-        //
+        $this->orders = $orders;
     }
 
     /**

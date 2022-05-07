@@ -55,7 +55,9 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
 
     Route::get('/editPrice/{id}',[RestaurantController::class,'editPrice'])->name('editPrice');
 
-    Route::post('updatePrice/{id}',[RestaurantController::class,'updateFoodPrice']);
+    Route::post('/updatePrice/{id}',[RestaurantController::class,'updateFoodPrice']);
+
+    Route::get('/table',[RestaurantController::class,'tables'])->name('table');
 
 });
     Route::group(['middleware'=> ['role:waiter|chef']], function (){

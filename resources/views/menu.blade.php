@@ -2,6 +2,7 @@
 @section('content')
 
 <h3 style="text-align: center; margin:15px;font-family: Arial">Menu</h3>
+<a href="{{ route('table') }}">Book Your Table</a>
     <div class="container" style="width:700px">
         @hasrole('chef|waiter')
         <form action="menu" method="GET" >

@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Warehouse;
 use App\Models\Fridge;
 use App\Models\PreparedFood;
+use App\Models\Table;
 use App\Rules\NotEnoughProducts;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Mail;
@@ -137,6 +138,13 @@ class RestaurantController extends Controller
         dispatch(new SendEmail());
         session()->flash('success','Price has been updated successfully!');
         return redirect()->back();
+    }
+
+    public function tables()
+    {
+        $tables = Table::all();
+
+        return view('table',compact('tables'));
     }
 
 

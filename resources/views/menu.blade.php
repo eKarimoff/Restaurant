@@ -1,12 +1,11 @@
 @extends('layouts.app')
 @section('content')
-
+@yield('menu')
 <h3 style="text-align: center; margin:15px;font-family: Arial">Menu</h3>
-<a href="{{ route('table') }}">Book Your Table</a>
-    <div class="container" style="width:700px">
-        @hasrole('chef|waiter')
-        <form action="menu" method="GET" >
-       <div class="d-flex justify-content-between">
+<div class="container" style="width:700px">
+    @hasrole('chef|waiter')
+    <form action="menu" method="GET" >
+        <div class="d-flex justify-content-between">
         <div class="input-group mb-2" style="width:570px; border:1px solid;" >
             <input type="text" class="form-control border-0 rounded" required name="search" id="search" placeholder="Search foods..." aria-label="Username" aria-describedby="basic-addon1" style="border-radius:10px" >
             <div>
@@ -52,14 +51,16 @@
                     <th style="text-align: center">Count</th>
                 </tr>
                 <tbody>
+                   
                     @foreach ($foods as $food)
                     <tr>
                         <td><a style="color:black;text-decoration:none" href="{{ route('ingredient', ['id' => $food->id]) }}">{{ $food->name }} <i class="bi bi-arrow-right ml-2"></i></a></td>
                         <td style="text-align: center">{{ $food->made_price /10 }}$</td>
-                        
                         <td style="text-align: center"><a href="{{ route('editPrice',['id'=>$food->id]) }}"><i class="bi bi-pencil"></i></a> {{ $food->price }}$</td>
                         <td style="text-align: center;{{ $food->price - $food->made_price /10 < 0 ? 'color:red' : 'color:green'}}">
                         {{ $food->price - $food->made_price /10 < 0 ? $food->price - $food->made_price /10 : $food->price - $food->made_price /10}}$</td>
+                        
+                       
 
                             <td style=" text-align: center;{{ $food->preparedFood && $food->preparedFood->amount ? 'color:green' : 'color:red' }}">
                                 {{$food->preparedFood && $food->preparedFood->amount ? $food->preparedFood->amount : 'Not Available'}}</td>

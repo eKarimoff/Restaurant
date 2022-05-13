@@ -21,7 +21,7 @@ class DetailController extends Controller
 
         return view('statistic', compact('statistic'));
     }
-    public function ingredient($id)
+    public function ingredient(Request $request,$id)
     {
         $details = Ingredient::with(['food','product'])->where('food_id',$id)->get();
         $total = $details->sum('total_price');

@@ -27,9 +27,7 @@ class Food extends Model
     {
         return $this->hasOne(PreparedFood::class);
     }
-
-    // protected $appends = ['total_price'];
-    
+        
     public function getMadePriceAttribute()
     {
         return $this->ingredients->sum('total_price');

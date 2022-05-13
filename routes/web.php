@@ -23,7 +23,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     
     Route::get('/home', [RestaurantController::class, 'menu'])->name('menu');
     
-    Route::get('/menu',[RestaurantController::class,'menu'])->name('menu');
+    Route::get('/menu/{id?}',[RestaurantController::class,'menu'])->name('menu');
 
     Route::get('/search',[RestaurantController::class,'search']);
 
@@ -64,11 +64,11 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::get('/editPrice/{id}',[RestaurantController::class,'editPrice'])->name('editPrice');
     Route::post('updatePrice/{id}',[RestaurantController::class,'updateFoodPrice']);
     Route::get('/', [RestaurantController::class,'menu'])->name('menu');
-    Route::get('/menu', [RestaurantController::class,'menu'])->name('menu');
+    Route::get('/menu/{id?}', [RestaurantController::class,'menu'])->name('menu');
     Route::post('/orderStore',[RestaurantController::class,'orderStore']);
     Route::get('/ingredient/{id}',[DetailController::class,'ingredient'])->name('ingredient');
     Route::get('/home', [RestaurantController::class, 'menu'])->name('menu');
-    
+    Route::post('/bookTable',[RestaurantController::class,'bookTable']);
 });
 });
 

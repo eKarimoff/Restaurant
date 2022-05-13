@@ -26,8 +26,9 @@ class RestaurantController extends Controller
     {
         $this->middleware('auth');
     }
-    public function menu(Request $request)
+    public function menu(Request $request,$id = null)
     {
+        
     if($request->search) {
         $foods = Food::with(['ingredients','preparedFood'])->where('name','like','%'.$request->search.'%')->orderBy('created_at')->paginate(5);
     }
@@ -36,7 +37,7 @@ class RestaurantController extends Controller
     }
     $products = Product::with('productPrice')->get();
     $foods->sum('total_price');
-    return view('menu',)->with(['foods' => $foods, 'products' => $products,]);
+    return view('menu')->with(['foods' => $foods, 'products' => $products,]);
  
     }
 
@@ -72,15 +73,18 @@ class RestaurantController extends Controller
 }
     public function orderStore(Request $request)
     {   
+       
         $request->validate([
         'name'=> 'required',
     ]);
         DB::beginTransaction();
+        
         $data = $request->all();
-      
         try{
             foreach($data['name'] as $key=>$value){
+
             $order = new Order();
+            
             $order->food_id = $key;
             $order->count = $value;
             $order->save();
@@ -145,6 +149,12 @@ class RestaurantController extends Controller
         $tables = Table::all();
 
         return view('table',compact('tables'));
+    }
+
+    public function booking($id = null)
+    {
+        $this->menu($request);
+        return redirect()->route('menu');
     }
 
 

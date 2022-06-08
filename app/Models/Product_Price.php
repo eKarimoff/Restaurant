@@ -9,7 +9,7 @@ class Product_Price extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_price';
+    protected $table = 'product_prices';
 
     public function product()
     {

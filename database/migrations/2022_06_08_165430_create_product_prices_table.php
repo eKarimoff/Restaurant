@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFridgeTable extends Migration
+class CreateProductPriceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateFridgeTable extends Migration
      */
     public function up()
     {
-        Schema::create('fridge', function (Blueprint $table) {
+        Schema::create('product_price', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id');
-            $table->string('amount');
+            $table->bigInteger('product_id')->unsigned();
+            $table->float('price');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateFridgeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fridge');
+        Schema::dropIfExists('product_price');
     }
 }

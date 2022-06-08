@@ -10,7 +10,7 @@ use App\Models\Price;
 class warehouse extends Model
 {
     use HasFactory;
-    protected $table = 'warehouse';
+    protected $table = 'warehouses';
 
     public function product()
     {
